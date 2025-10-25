@@ -7,6 +7,9 @@ import { WebSocketServer } from "ws";
 import express from "express";
 import http from "http";
 
+import userRoutes from "./src/routes/UserRoutes.js";
+import roomRoutes from "./src/routes/RoomRoutes.js";
+
 import { initializeDatabase } from "./src/database.js";
 import { createWebRTCServer } from "./src/webrtc.js";
 
@@ -15,6 +18,9 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 
 app.use(express.json());
+
+app.use("/api/users", userRoutes);
+app.use("/api/rooms", roomRoutes);
 
 initializeDatabase();
 createWebRTCServer(wss);
