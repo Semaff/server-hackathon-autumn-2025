@@ -5,6 +5,7 @@ import { DataSource } from "typeorm";
 
 import { User } from "./entities/User.js";
 import { Room } from "./entities/Room.js";
+import { Message } from "./entities/Message.js";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -15,7 +16,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE || "videochat",
   synchronize: true,
   logging: false,
-  entities: [User, Room],
+  entities: [User, Room, Message],
   subscribers: [],
   migrations: [],
 });

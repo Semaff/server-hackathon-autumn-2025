@@ -1,5 +1,14 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+} from "typeorm";
 import { User } from "./User.js";
+import { Message } from "./Message.js";
 
 @Entity("rooms")
 export class Room {
@@ -15,6 +24,9 @@ export class Room {
   @ManyToOne(() => User, (user) => user.rooms)
   @JoinColumn({ name: "creator_id" })
   creator!: User;
+
+  @OneToMany(() => Message, (message) => message.room)
+  messages!: Message[];
 
   @CreateDateColumn()
   created_at!: Date;

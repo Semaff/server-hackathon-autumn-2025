@@ -10,9 +10,11 @@ import cors from "cors";
 
 import userRoutes from "./src/routes/UserRoutes.js";
 import roomRoutes from "./src/routes/RoomRoutes.js";
+import messageRoutes from "./src/routes/MessageRoutes.js";
 
 import { initializeDatabase } from "./src/database.js";
 import { createWebRTCServer } from "./src/webrtc.js";
+import { createChatConnection } from "./src/chat.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -23,9 +25,11 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/rooms", roomRoutes);
+app.use("/api/messages", messageRoutes);
 
 initializeDatabase();
 createWebRTCServer(wss);
+createChatConnection(wss);
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
