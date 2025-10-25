@@ -1,7 +1,14 @@
-export function createWebRTCServer(wss) {
+import WebSocket, { Server } from "ws";
+
+type BroadcastMsg = {
+  type: "new-peer" | "peer-left";
+  id: string;
+};
+
+export function createWebRTCServer(wss: Server<typeof WebSocket>) {
   const clients = new Map(); // id → ws
 
-  function broadcast(msg, exceptId = null) {
+  function broadcast(msg: BroadcastMsg, exceptId: string | null = null) {
     for (const [id, client] of clients.entries()) {
       if (id !== exceptId && client.readyState === 1) {
         client.send(JSON.stringify(msg));
@@ -26,7 +33,7 @@ export function createWebRTCServer(wss) {
     ws.on("message", (msg) => {
       let data;
       try {
-        data = JSON.parse(msg);
+        data = JSON.parse(msg as unknown as string);
       } catch {
         console.warn("Invalid JSON message:", msg);
         return;
