@@ -7,6 +7,7 @@ import { WebSocketServer } from "ws";
 import express from "express";
 import http from "http";
 import cors from "cors";
+import path from "path";
 
 import userRoutes from "./src/routes/UserRoutes.js";
 import roomRoutes from "./src/routes/RoomRoutes.js";
@@ -20,6 +21,7 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(cors());
 app.use(express.json());
 
