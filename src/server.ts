@@ -9,13 +9,13 @@ import http from "http";
 import cors from "cors";
 import path from "path";
 
-import userRoutes from "./src/routes/UserRoutes.js";
-import roomRoutes from "./src/routes/RoomRoutes.js";
-import messageRoutes from "./src/routes/MessageRoutes.js";
+import userRoutes from "./routes/UserRoutes.js";
+import roomRoutes from "./routes/RoomRoutes.js";
+import messageRoutes from "./routes/MessageRoutes.js";
 
-import { initializeDatabase } from "./src/database.js";
-import { createWebRTCServer } from "./src/webrtc.js";
-import { createChatConnection } from "./src/chat.js";
+import { initializeDatabase } from "./database.js";
+import { createWebRTCServer } from "./webrtc.js";
+import { createChatConnection } from "./chat.js";
 
 const app = express();
 const server = http.createServer(app);
